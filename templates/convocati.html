@@ -1,0 +1,78 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="base.css">
+<style>
+  .stripes { height: 520px; }
+  .head {
+    position: absolute; top: 230px; left: 60px; right: 60px;
+    display: flex; align-items: center; gap: 36px;
+  }
+  .head .crest { width: 230px; height: 230px; }
+  .title { background: var(--nero); padding: 14px 32px 20px; }
+  .title h1 { font-family: "BSD"; font-weight: 900; font-size: 150px; line-height: 0.9; }
+  .title p { font-family: "BC"; font-weight: 600; font-size: 42px; color: var(--rosa); margin-top: 8px; }
+
+  .grid {
+    position: absolute; top: 570px; left: 40px; right: 40px; height: 1110px;
+    display: flex; flex-wrap: wrap; justify-content: center; align-content: center;
+    column-gap: 30px; row-gap: {{ gap }}px;
+  }
+  .shirt { position: relative; width: {{ w }}px; height: {{ h }}px; }
+  /* maglia vista da dietro: corpo a righe rosa e nere come il kit */
+  .shirt .body {
+    position: absolute; inset: 0;
+    clip-path: polygon(31% 0, 69% 0, 100% 16%, 91% 40%, 79% 34%, 79% 100%, 21% 100%, 21% 34%, 9% 40%, 0 16%);
+    background: repeating-linear-gradient(90deg,
+      var(--rosa) 0 {{ (w*0.58/5)|round|int }}px, var(--nero) {{ (w*0.58/5)|round|int }}px {{ (w*0.58/5*2)|round|int }}px);
+    background-position: {{ (w*0.21)|round|int }}px 0;
+  }
+  .shirt .bw { position: absolute; inset: 0;
+    filter: drop-shadow(5px 0 0 var(--bianco)) drop-shadow(-5px 0 0 var(--bianco))
+            drop-shadow(0 5px 0 var(--bianco)) drop-shadow(0 -5px 0 var(--bianco)); }
+  .shirt.gk .bw { filter: none; }
+  .shirt.gk .body { background: var(--bianco); }
+  .shirt .collar {
+    position: absolute; left: 35%; width: 30%; top: 0; height: 5%;
+    background: var(--nero); border-radius: 0 0 50% 50%;
+  }
+  .shirt .txt {
+    position: absolute; left: 21%; right: 21%; top: 20%;
+    display: flex; flex-direction: column; align-items: center;
+    font-family: "BSD"; color: var(--bianco);
+    -webkit-text-stroke: {{ (w/40)|round|int }}px var(--nero); paint-order: stroke fill;
+  }
+  .shirt.gk .txt { color: var(--nero); -webkit-text-stroke: 0; }
+  .shirt .nm { font-weight: 800; line-height: 1; white-space: nowrap; letter-spacing: 1px; }
+  .shirt .no { font-weight: 900; line-height: 0.95; font-size: {{ (h*0.5)|round|int }}px; }
+  .shirt.gk .tag {
+    position: absolute; left: 0; right: 0; bottom: -46px; text-align: center;
+    font-family: "BC"; font-weight: 600; font-size: 30px; color: var(--grigio);
+  }
+  .coach {
+    position: absolute; top: 1700px; left: 0; right: 0; text-align: center;
+    font-family: "BC"; font-weight: 500; font-size: 40px; color: var(--grigio);
+  }
+</style></head>
+<body>
+  <div class="stripes"></div>
+  <div class="head">
+    <img class="crest" src="{{ logo }}">
+    <div class="title">
+      <h1>Convocati</h1>
+      <p>vs {{ avversario }}, {{ giorno_breve }} {{ ora }}</p>
+    </div>
+  </div>
+  <div class="grid">
+    {% for g in giocatori %}
+    <div class="shirt{% if g.portiere %} gk{% endif %}">
+      <div class="bw"><div class="body"></div></div><div class="collar"></div>
+      <div class="txt">
+        <span class="nm" style="font-size: {{ g.nm_size }}px">{{ g.cognome | upper }}</span>
+        <span class="no">{{ g.numero if g.numero is not none else "" }}</span>
+      </div>
+
+    </div>
+    {% endfor %}
+  </div>
+  {% if allenatore %}<div class="coach">All. {{ allenatore }}</div>{% endif %}
+</body></html>

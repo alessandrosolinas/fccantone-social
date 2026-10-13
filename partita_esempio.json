@@ -1,0 +1,34 @@
+{
+  "avversario": {
+    "nome": "Sporting Navigli",
+    "logo": null
+  },
+  "casa": true,
+  "competizione": "Campionato, 5ª giornata",
+  "data": "2026-10-17",
+  "ora": "15:00",
+  "convocati": [
+    "Cicero",
+    "Rombolà",
+    "L. Auritano",
+    "A. Auritano",
+    "Palandrani",
+    "R. Auritano",
+    "Picerno",
+    "Bonomo",
+    "Rossi"
+  ],
+  "portieri": [
+    "Vince"
+  ],
+  "risultato": {
+    "noi": 3,
+    "loro": 1,
+    "marcatori": [
+      "L. Auritano",
+      "Rombolà",
+      "L. Auritano"
+    ],
+    "mvp": "L. Auritano"
+  }
+}

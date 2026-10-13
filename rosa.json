@@ -1,0 +1,18 @@
+[
+  {"nome": "L. Auritano", "numero": 9},
+  {"nome": "A. Auritano", "numero": 10},
+  {"nome": "Bonomo", "numero": 12},
+  {"nome": "Palandrani", "numero": 17},
+  {"nome": "Soli", "numero": 33},
+  {"nome": "R. Auritano", "numero": 92},
+  {"nome": "Pisani", "numero": 8},
+  {"nome": "Toia", "numero": 13},
+  {"nome": "Basile", "numero": 2},
+  {"nome": "Rombolà", "numero": 7},
+  {"nome": "Picerno", "numero": 3},
+  {"nome": "Cassina", "numero": 99},
+  {"nome": "Cicero", "numero": 4},
+  {"nome": "Vince", "numero": 1, "portiere": true},
+  {"nome": "Simo", "numero": 1, "portiere": true},
+  {"nome": "Max", "numero": 1, "portiere": true}
+]

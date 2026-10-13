@@ -1,0 +1,65 @@
+@font-face { font-family: "BSD"; src: url("../fonts/big-shoulders-display-latin-500-normal.woff2"); font-weight: 500; }
+@font-face { font-family: "BSD"; src: url("../fonts/big-shoulders-display-latin-700-normal.woff2"); font-weight: 700; }
+@font-face { font-family: "BSD"; src: url("../fonts/big-shoulders-display-latin-800-normal.woff2"); font-weight: 800; }
+@font-face { font-family: "BSD"; src: url("../fonts/big-shoulders-display-latin-900-normal.woff2"); font-weight: 900; }
+@font-face { font-family: "BC"; src: url("../fonts/barlow-condensed-latin-500-normal.woff2"); font-weight: 500; }
+@font-face { font-family: "BC"; src: url("../fonts/barlow-condensed-latin-600-normal.woff2"); font-weight: 600; }
+@font-face { font-family: "BC"; src: url("../fonts/barlow-condensed-latin-700-normal.woff2"); font-weight: 700; }
+
+:root {
+  --rosa: #F26497;
+  --rosa-scuro: #C94A7A;
+  --nero: #000000;
+  --bianco: #FFFFFF;
+  --grigio: #9A9A9A;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  width: 1080px;
+  height: 1920px;
+  overflow: hidden;
+  background: var(--nero);
+  color: var(--bianco);
+  font-family: "BC", sans-serif;
+}
+
+/* Stripes taken from the crest: alternating pink and black, 180px each */
+.stripes {
+  position: absolute;
+  left: 0; right: 0; top: 0;
+  background: repeating-linear-gradient(90deg,
+    var(--nero) 0 90px,
+    var(--rosa) 90px 270px,
+    var(--nero) 270px 360px);
+}
+.stripes::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 14px;
+  background: var(--rosa);
+}
+
+.crest { display: block; object-fit: contain; }
+
+.badge {
+  border-radius: 50%;
+  background: var(--bianco);
+  border: 14px solid var(--nero);
+  box-shadow: 0 0 0 8px var(--bianco);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--nero);
+  font-family: "BSD"; font-weight: 900;
+}
+
+.footer-tag {
+  position: absolute;
+  left: 0; right: 0; bottom: 210px;
+  text-align: center;
+  font-family: "BC"; font-weight: 600;
+  font-size: 34px;
+  letter-spacing: 3px;
+  color: var(--grigio);
+}

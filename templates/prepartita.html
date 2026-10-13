@@ -1,0 +1,56 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="base.css">
+<style>
+  .stripes { height: 1010px; }
+  .comp {
+    position: absolute; top: 230px; left: 0; right: 0; text-align: center;
+    font-family: "BC"; font-weight: 700; font-size: 44px; letter-spacing: 2px;
+  }
+  .comp span { background: var(--nero); padding: 10px 28px; }
+  .teams {
+    position: absolute; top: 420px; left: 0; right: 0;
+    display: flex; justify-content: center; align-items: center; gap: 30px;
+  }
+  .teams .crest, .teams .badge { width: 390px; height: 390px; }
+  .vs {
+    width: 120px; height: 120px; border-radius: 50%;
+    background: var(--nero); color: var(--rosa);
+    display: flex; align-items: center; justify-content: center;
+    font-family: "BSD"; font-weight: 900; font-size: 64px;
+  }
+  .names {
+    position: absolute; top: 1040px; left: 40px; right: 40px;
+    display: flex; justify-content: space-between;
+    font-family: "BSD"; font-weight: 800; font-size: 58px; line-height: 1;
+  }
+  .names div { width: 46%; text-align: center; }
+  .day {
+    position: absolute; top: 1140px; left: 0; right: 0; text-align: center;
+    font-family: "BC"; font-weight: 600; font-size: 64px; color: var(--rosa);
+  }
+  .time {
+    position: absolute; top: 1220px; left: 0; right: 0; text-align: center;
+    font-family: "BSD"; font-weight: 900; font-size: 340px; line-height: 1;
+    letter-spacing: -4px;
+  }
+  .place {
+    position: absolute; top: 1580px; left: 60px; right: 60px; text-align: center;
+    font-family: "BC"; font-weight: 500; font-size: 46px; line-height: 1.25; white-space: pre-line;
+  }
+</style></head>
+<body>
+  <div class="stripes"></div>
+  <div class="comp"><span>{{ competizione }}</span></div>
+  <div class="teams">
+    {% for t in squadre %}
+      {% if t.logo %}<img class="crest" src="{{ t.logo }}">
+      {% else %}<div class="badge" style="font-size: {{ t.sigla_size }}px">{{ t.sigla }}</div>{% endif %}
+      {% if loop.first %}<div class="vs">vs</div>{% endif %}
+    {% endfor %}
+  </div>
+  <div class="names">{% for t in squadre %}<div>{{ t.nome | upper }}</div>{% endfor %}</div>
+  <div class="day">{{ giorno }}</div>
+  <div class="time">{{ ora }}</div>
+  <div class="place">{{ campo }}</div>
+</body></html>

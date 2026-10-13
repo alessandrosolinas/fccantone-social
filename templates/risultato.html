@@ -1,0 +1,67 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="base.css">
+<style>
+  .stripes { height: {{ 1920 if vittoria else 720 }}px; }
+  {% if vittoria %}.stripes::after { display: none; }{% endif %}
+  .label {
+    position: absolute; top: 230px; left: 0; right: 0; text-align: center;
+  }
+  .label span {
+    background: var(--nero); padding: 10px 30px;
+    font-family: "BC"; font-weight: 700; font-size: 46px; letter-spacing: 2px;
+  }
+  .board {
+    position: absolute; top: 360px; left: 50px; right: 50px;
+    display: grid; grid-template-columns: 1fr 1fr; column-gap: 40px;
+  }
+  .side { display: flex; flex-direction: column; align-items: center; }
+  .side .crest, .side .badge { width: 330px; height: 330px; }
+  .score {
+    margin-top: 40px;
+    width: 100%; text-align: center;
+    background: var(--nero);
+    font-family: "BSD"; font-weight: 900; font-size: 440px; line-height: 1;
+    padding: 10px 0 30px;
+  }
+  .side.noi .score { color: var(--bianco); }
+  .side.loro .score { color: var(--bianco); }
+  .tname {
+    width: 100%; text-align: center; background: var(--nero);
+    font-family: "BSD"; font-weight: 800; font-size: 50px; line-height: 1;
+    padding: 0 10px 26px;
+  }
+  .scorers {
+    width: 100%; background: var(--nero); padding: 6px 20px 24px;
+    min-height: 260px;
+    font-family: "BC"; font-weight: 600; font-size: 40px; line-height: 1.35;
+    text-align: center;
+  }
+  .scorers .min { color: var(--rosa); }
+  .mvp {
+    position: absolute; top: 1580px; left: 0; right: 0; text-align: center;
+  }
+  .mvp span {
+    display: inline-block; background: var(--bianco); color: var(--nero);
+    padding: 14px 40px;
+    font-family: "BSD"; font-weight: 800; font-size: 60px;
+  }
+</style></head>
+<body>
+  <div class="stripes"></div>
+  <div class="label"><span>Finale, {{ competizione }}</span></div>
+  <div class="board">
+    {% for t in squadre %}
+    <div class="side {{ t.chi }}">
+      {% if t.logo %}<img class="crest" src="{{ t.logo }}">
+      {% else %}<div class="badge" style="font-size: {{ t.sigla_size_small }}px">{{ t.sigla }}</div>{% endif %}
+      <div class="score">{{ t.gol }}</div>
+      <div class="tname">{{ t.nome | upper }}</div>
+      <div class="scorers">
+        {% for m in t.marcatori %}<div>{{ m.nome }} <span class="min">x{{ m.gol }}</span></div>{% endfor %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% if mvp %}<div class="mvp"><span>MVP {{ mvp | upper }}</span></div>{% endif %}
+</body></html>
