@@ -46,6 +46,10 @@
     padding: 14px 40px;
     font-family: "BSD"; font-weight: 800; font-size: 60px;
   }
+  .frase {
+    position: absolute; top: 1600px; left: 0; right: 0; text-align: center;
+    font-family: "BSD"; font-weight: 800; font-size: 64px; color: var(--rosa);
+  }
 </style></head>
 <body>
   <div class="stripes"></div>
@@ -63,5 +67,6 @@
     </div>
     {% endfor %}
   </div>
+  {% if frase %}<div class="frase"{% if mvp %} style="top: 1730px"{% endif %}>{{ frase | upper }}</div>{% endif %}
   {% if mvp %}<div class="mvp"><span>MVP {{ mvp | upper }}</span></div>{% endif %}
 </body></html>
