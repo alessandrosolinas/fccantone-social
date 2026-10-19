@@ -123,6 +123,7 @@ def ctx_risultato(d):
         "squadre": ordina(noi, loro, d.get("casa", True)),
         "vittoria": r["noi"] > r["loro"],
         "mvp": r.get("mvp"),
+        "frase": r.get("frase"),
     }
 
 
