@@ -1,0 +1,26 @@
+/* Formato post feed 1080x1350 (4:5). Eredita font e colori da base.css */
+html, body { width: 1080px; height: 1350px; }
+
+/* maglia vista da dietro, stessa delle storie convocati */
+.shirt { position: relative; }
+.shirt .bw { position: absolute; inset: 0;
+  filter: drop-shadow(6px 0 0 var(--bianco)) drop-shadow(-6px 0 0 var(--bianco))
+          drop-shadow(0 6px 0 var(--bianco)) drop-shadow(0 -6px 0 var(--bianco)); }
+.shirt .body {
+  position: absolute; inset: 0;
+  clip-path: polygon(31% 0, 69% 0, 100% 16%, 91% 40%, 79% 34%, 79% 100%, 21% 100%, 21% 34%, 9% 40%, 0 16%);
+}
+.shirt .collar {
+  position: absolute; left: 35%; width: 30%; top: 0; height: 5%;
+  background: var(--nero); border-radius: 0 0 50% 50%;
+}
+.shirt .txt {
+  position: absolute; left: 21%; right: 21%; top: 19%;
+  display: flex; flex-direction: column; align-items: center;
+  font-family: "BSD"; color: var(--bianco); paint-order: stroke fill;
+}
+.shirt .nm { font-weight: 800; line-height: 1; white-space: nowrap; letter-spacing: 1px; }
+.shirt .no { font-weight: 900; line-height: 0.95; }
+.shirt.gk .bw { filter: none; }
+.shirt.gk .body { background: var(--bianco) !important; }
+.shirt.gk .txt { color: var(--nero); -webkit-text-stroke: 0 !important; }
