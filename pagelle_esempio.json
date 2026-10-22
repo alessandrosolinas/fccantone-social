@@ -1,0 +1,126 @@
+{
+ "avversario": {
+  "nome": "L'Altra Botte",
+  "logo": null
+ },
+ "casa": true,
+ "competizione": "Campionato, 3ª giornata",
+ "data": "2026-10-19",
+ "ora": "15:00",
+ "risultato": {
+  "noi": 4,
+  "loro": 8,
+  "marcatori": [
+   "L. Auritano",
+   "R. Auritano",
+   "L. Auritano",
+   "A. Auritano"
+  ]
+ },
+ "pagelle": {
+  "mvp": "L. Auritano",
+  "squadra": {
+   "voto": 5,
+   "commento": "Quattro fatti, otto presi. Il bilancio lo fa il commercialista."
+  },
+  "giocatori": [
+   {
+    "nome": "Vince",
+    "voto": 5.5,
+    "titolo": "Il muro di cartongesso",
+    "commento": "Due parate vere e sei raccattate in fondo al sacco. Almeno ha fatto palestra.",
+    "materie": {
+     "Riflessi": 6,
+     "Uscite": 3,
+     "Lamentele": 9
+    }
+   },
+   {
+    "nome": "L. Auritano",
+    "voto": 8,
+    "titolo": "Doppietta e specchio",
+    "commento": "Due gol e un'esultanza provata a casa. Si vedeva.",
+    "materie": {
+     "Piedi": 8,
+     "Esultanza": 9,
+     "Difesa": 2
+    }
+   },
+   {
+    "nome": "Cicero",
+    "voto": 5,
+    "titolo": "Moto perpetuo",
+    "commento": "Ha corso tantissimo. In che direzione resta un mistero.",
+    "materie": {
+     "Polmoni": 9,
+     "GPS": 2,
+     "Grinta": 7
+    }
+   },
+   {
+    "nome": "Rombolà",
+    "voto": "s.v.",
+    "titolo": "Disperso",
+    "timbro": "Chi l'ha visto?",
+    "commento": "Avvistato al 30' vicino alla bandierina. Poi più nulla.",
+    "materie": {
+     "Presenza": 1,
+     "Orientamento": 2,
+     "Alibi": 7
+    }
+   },
+   {
+    "nome": "R. Auritano",
+    "voto": 6.5,
+    "titolo": "Il fratello giusto",
+    "commento": "Gol e mezzo rigore procurato. Il mezzo l'ha visto solo lui.",
+    "materie": {
+     "Furbizia": 8,
+     "Fiato": 5,
+     "Terzo tempo": 10
+    }
+   },
+   {
+    "nome": "Basile",
+    "voto": 5,
+    "commento": "Ha marcato a uomo. Peccato fosse l'uomo sbagliato.",
+    "materie": {
+     "Marcatura": 4,
+     "Impegno": 8,
+     "Mira": 3
+    }
+   },
+   {
+    "nome": "Pisani",
+    "voto": 6,
+    "commento": "Ordinato, pulito, invisibile. Il 6 dell'impiegato modello.",
+    "materie": {
+     "Ordine": 8,
+     "Fantasia": 3,
+     "Visibilità": 2
+    }
+   },
+   {
+    "nome": "Toia",
+    "voto": 5.5,
+    "commento": "Entrato col piglio giusto, uscito col fiatone giusto.",
+    "materie": {
+     "Ingresso": 7,
+     "Fiato": 3,
+     "Look": 8
+    }
+   },
+   {
+    "nome": "Arbitro",
+    "voto": 4,
+    "titolo": "Fischietto nuovo",
+    "commento": "Idee vecchie.",
+    "materie": {
+     "Vista": 2,
+     "Fischio": 9,
+     "Simpatia": 3
+    }
+   }
+  ]
+ }
+}
