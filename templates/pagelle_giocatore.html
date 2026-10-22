@@ -1,0 +1,164 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="base.css">
+<link rel="stylesheet" href="post_base.css">
+<style>
+  /* sfondo: righe del kit in diagonale + retino a puntini + grana */
+  body {
+    background:
+      radial-gradient(circle, rgba(0,0,0,.55) 2.2px, transparent 2.6px) 0 0 / 14px 14px,
+      repeating-linear-gradient(115deg, var(--rosa) 0 110px, var(--nero) 110px 220px);
+  }
+  .grain { position: absolute; inset: 0; opacity: .22; mix-blend-mode: overlay; pointer-events: none; z-index: 9;
+    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
+  .head {
+    position: absolute; top: 40px; left: 60px; right: 60px; z-index: 3;
+    display: flex; align-items: center; gap: 22px;
+  }
+  .head .crest { width: 96px; height: 96px; }
+  .head .t { background: var(--nero); padding: 6px 22px 10px; }
+  .head .t b { display: block; font-family: "BSD"; font-weight: 900; font-size: 50px; line-height: 1; }
+  .head .t span { font-family: "BC"; font-weight: 600; font-size: 30px; color: var(--rosa); }
+  .head .n { margin-left: auto; background: var(--nero); padding: 6px 18px 10px;
+    font-family: "BSD"; font-weight: 800; font-size: 40px; color: var(--grigio); }
+  .head .n em { font-style: normal; color: var(--bianco); }
+
+  /* la figurina */
+  .card {
+    position: absolute; left: 80px; right: 80px; top: 178px; height: 1072px;
+    transform: rotate(-1.6deg); z-index: 2;
+    padding: 16px;
+    background: var(--bianco);
+    box-shadow: 18px 22px 0 rgba(0,0,0,.85);
+  }
+  {% if p.mvp %}
+  .card { background: linear-gradient(135deg, #ffd1e2 0%, var(--rosa) 22%, #fff 40%, var(--rosa) 58%, #ffd1e2 76%, var(--rosa) 100%); }
+  {% endif %}
+  .inner { position: relative; width: 100%; height: 100%; background: var(--nero); overflow: hidden; }
+
+  .art {
+    position: relative; height: 410px; overflow: hidden;
+    background:
+      radial-gradient(circle, rgba(242,100,151,.35) 2px, transparent 2.5px) 0 0 / 12px 12px,
+      #161616;
+  }
+  .ghost {
+    position: absolute; left: -20px; bottom: -120px;
+    font-family: "BSD"; font-weight: 900; font-size: 560px; line-height: 1;
+    color: transparent; -webkit-text-stroke: 4px rgba(242,100,151,.55);
+  }
+  .shirt { position: absolute; left: 50%; bottom: -36px; transform: translateX(-50%); width: {{ w }}px; height: {{ h }}px; }
+  .shirt .body {
+    background: repeating-linear-gradient(90deg,
+      var(--rosa) 0 {{ (w*0.58/5)|round|int }}px, var(--nero) {{ (w*0.58/5)|round|int }}px {{ (w*0.58/5*2)|round|int }}px);
+    background-position: {{ (w*0.21)|round|int }}px 0;
+  }
+  .shirt .txt { -webkit-text-stroke: {{ (w/40)|round|int }}px var(--nero); }
+  .shirt .no { font-size: {{ (h*0.5)|round|int }}px; }
+  .noshirt { position: absolute; left: 36%; top: 60px; transform: translateX(-50%); width: 300px; height: 300px; }
+  .foto { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+  .band {
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--rosa); color: var(--nero); padding: 14px 30px 18px;
+  }
+  .band .nome { font-family: "BSD"; font-weight: 900; line-height: .9; font-size: {{ p.nome_size }}px; white-space: nowrap; }
+  .band .ruolo { font-family: "BC"; font-weight: 700; font-size: 30px; text-align: right; line-height: 1.05; }
+
+  .body-txt { padding: 26px 34px 0; }
+  .titolo { font-family: "BSD"; font-weight: 800; font-size: 54px; line-height: 1.02; color: var(--rosa); }
+  .comm { margin-top: 14px; font-family: "BC"; font-weight: 600; font-size: {{ p.comm_size }}px; line-height: 1.2; }
+
+  .materie { position: absolute; left: 34px; right: 34px; bottom: 30px; display: grid; row-gap: 14px; }
+  .mat { display: grid; grid-template-columns: 250px 1fr 70px; align-items: center; column-gap: 18px; }
+  .mat .l { font-family: "BC"; font-weight: 700; font-size: 32px; color: var(--grigio); white-space: nowrap; overflow: hidden; }
+  .mat .bar { display: grid; grid-template-columns: repeat(10, 1fr); gap: 5px; }
+  .mat .bar i { height: 26px; background: #2a2a2a; transform: skewX(-14deg); }
+  .mat .bar i.on { background: var(--bianco); }
+  .mat .bar i.top { background: var(--rosa); }
+  .mat .v { font-family: "BSD"; font-weight: 900; font-size: 46px; text-align: right; line-height: 1; }
+
+  /* il voto: adesivo tondo attaccato storto sull'angolo */
+  .voto {
+    position: absolute; z-index: 4; right: 48px; top: 150px;
+    width: 330px; height: 330px; border-radius: 50%;
+    background: {{ "var(--nero)" if p.mvp else "var(--rosa)" }};
+    border: 12px solid var(--nero); outline: 8px solid var(--bianco);
+    transform: rotate(8deg);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 14px 16px 0 rgba(0,0,0,.6);
+  }
+  .voto span {
+    font-family: "BSD"; font-weight: 900; line-height: .8; letter-spacing: -4px;
+    color: {{ "var(--rosa)" if p.mvp else "var(--nero)" }};
+    font-size: {{ p.voto.size }}px; margin-top: 10px; white-space: nowrap;
+  }
+  .voto sup { font-size: .42em; vertical-align: .95em; letter-spacing: 0; margin-left: 2px; }
+  .voto small {
+    position: absolute; bottom: 44px; left: 0; right: 0; text-align: center;
+    font-family: "BC"; font-weight: 700; font-size: 26px; letter-spacing: 1px;
+    color: {{ "var(--bianco)" if p.mvp else "var(--nero)" }};
+  }
+
+  .timbro {
+    position: absolute; z-index: 5; left: 64px; top: 420px;
+    transform: rotate(-10deg);
+    font-family: "BSD"; font-weight: 900; font-size: 86px; line-height: 1;
+    color: var(--bianco); background: var(--nero);
+    padding: 4px 28px 12px; border: 6px solid var(--bianco); outline: 6px solid var(--nero);
+    white-space: nowrap;
+  }
+
+  .prog { position: absolute; left: 80px; right: 80px; bottom: 30px; display: flex; gap: 8px; z-index: 3; }
+  .prog i { flex: 1; height: 8px; background: rgba(0,0,0,.6); }
+  .prog i.on { background: var(--bianco); }
+</style></head>
+<body>
+  <div class="head">
+    <img class="crest" src="{{ logo }}">
+    <div class="t"><b>PAGELLE</b><span>vs {{ avversario }}, {{ punteggio }}</span></div>
+    <div class="n"><em>{{ idx }}</em>/{{ tot - 1 }}</div>
+  </div>
+
+  <div class="card"><div class="inner">
+    <div class="art">
+      {% if p.foto %}<img class="foto" src="{{ p.foto }}">
+      {% elif p.numero is not none %}
+      <div class="ghost">{{ p.numero }}</div>
+      <div class="shirt{% if p.portiere %} gk{% endif %}">
+        <div class="bw"><div class="body"></div></div><div class="collar"></div>
+        <div class="txt">
+          <span class="nm" style="font-size: {{ p.nm_size }}px">{{ p.cognome | upper }}</span>
+          <span class="no">{{ p.numero }}</span>
+        </div>
+      </div>
+      {% else %}
+      <div class="badge noshirt" style="font-size: 130px">{{ p.sigla }}</div>
+      {% endif %}
+    </div>
+    <div class="band">
+      <div class="nome">{{ p.nome | upper }}</div>
+      <div class="ruolo">{% if p.numero is not none %}N° {{ p.numero }}<br>{% endif %}{{ p.ruolo }}</div>
+    </div>
+    <div class="body-txt">
+      {% if p.titolo %}<div class="titolo">{{ p.titolo }}</div>{% endif %}
+      <div class="comm">{{ p.commento }}</div>
+    </div>
+    {% if p.materie %}
+    <div class="materie">
+      {% for m in p.materie %}
+      <div class="mat">
+        <div class="l">{{ m.nome }}</div>
+        <div class="bar">{% for k in range(10) %}<i{% if k < m.pieni %} class="{{ 'top' if m.voto >= 8 else 'on' }}"{% endif %}></i>{% endfor %}</div>
+        <div class="v">{{ m.testo }}</div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div></div>
+
+  <div class="voto"><span>{{ p.voto.intero }}{% if p.voto.fraz %}<sup>{{ p.voto.fraz }}</sup>{% endif %}</span><small>VOTO</small></div>
+  {% if p.timbro %}<div class="timbro">{{ p.timbro | upper }}</div>{% endif %}
+
+  <div class="grain"></div>
+</body></html>
