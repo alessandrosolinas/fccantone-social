@@ -1,0 +1,91 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="base.css">
+<link rel="stylesheet" href="post_base.css">
+<style>
+  body {
+    background:
+      radial-gradient(circle, rgba(0,0,0,.55) 2.2px, transparent 2.6px) 0 0 / 14px 14px,
+      repeating-linear-gradient(115deg, var(--rosa) 0 110px, var(--nero) 110px 220px);
+  }
+  .grain { position: absolute; inset: 0; opacity: .22; mix-blend-mode: overlay; z-index: 9;
+    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
+
+  .top { position: absolute; top: 50px; left: 60px; right: 60px; display: flex; align-items: flex-end; gap: 26px; }
+  .top .crest { width: 190px; height: 190px; }
+  .top h1 {
+    background: var(--nero); padding: 0 26px 6px;
+    font-family: "BSD"; font-weight: 900; font-size: 210px; line-height: .86; letter-spacing: -2px;
+  }
+
+  /* il registro: tutti i voti in un colpo d'occhio */
+  .sheet {
+    position: absolute; left: 60px; right: 60px; top: 290px; bottom: 70px;
+    background: var(--nero); transform: rotate(-1deg);
+    box-shadow: 18px 22px 0 rgba(0,0,0,.85);
+    border: 14px solid var(--bianco);
+    display: flex; flex-direction: column;
+  }
+  .match {
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--rosa); color: var(--nero); padding: 18px 34px 22px;
+  }
+  .match .sq { font-family: "BSD"; font-weight: 900; font-size: 54px; line-height: 1; }
+  .match .sq small { display: block; font-family: "BC"; font-weight: 700; font-size: 28px; margin-top: 6px; }
+  .match .sc { font-family: "BSD"; font-weight: 900; font-size: 120px; line-height: .8; white-space: nowrap; }
+
+  .rows {
+    flex: 1; padding: 20px 34px 0;
+    display: grid; grid-auto-flow: column;
+    grid-template-rows: repeat({{ per_col }}, 1fr);
+    grid-template-columns: repeat({{ cols }}, 1fr); column-gap: 40px;
+  }
+  .row {
+    display: grid; grid-template-columns: 62px 1fr auto; align-items: center; column-gap: 14px;
+    border-bottom: 3px solid #262626;
+  }
+  .row .no { font-family: "BSD"; font-weight: 800; font-size: 36px; color: var(--grigio); text-align: right; }
+  .row .nm { font-family: "BSD"; font-weight: 800; font-size: {{ row_font }}px; line-height: 1; white-space: nowrap; overflow: hidden; }
+  .row .v { font-family: "BSD"; font-weight: 900; font-size: {{ row_font + 14 }}px; line-height: 1; }
+  .row .v sup { font-size: .5em; vertical-align: .7em; color: var(--rosa); }
+  .row.mvp .nm, .row.mvp .v { color: var(--rosa); }
+  .row.mvp .nm::after { content: " MVP"; font-size: .55em; vertical-align: .35em; color: var(--bianco); background: var(--rosa); padding: 0 6px 2px; margin-left: 8px; }
+
+  .team {
+    display: flex; align-items: center; gap: 30px;
+    margin: 18px 34px 26px; padding-top: 22px; border-top: 6px solid var(--rosa);
+  }
+  .team .v { font-family: "BSD"; font-weight: 900; font-size: 150px; line-height: .8; color: var(--rosa); white-space: nowrap; }
+  .team .v sup { font-size: .45em; vertical-align: .9em; }
+  .team .t { font-family: "BC"; font-weight: 700; font-size: 38px; line-height: 1.12; }
+  .team .t b { display: block; font-family: "BSD"; font-weight: 800; font-size: 32px; color: var(--grigio); }
+</style></head>
+<body>
+  <div class="top">
+    <img class="crest" src="{{ logo }}">
+    <h1>PAGELLE</h1>
+  </div>
+  <div class="sheet">
+    <div class="match">
+      <div class="sq">{{ squadre[0].nome | upper }}<small>{{ competizione }}</small></div>
+      <div class="sc">{{ squadre[0].gol }}-{{ squadre[1].gol }}</div>
+      <div class="sq" style="text-align:right">{{ squadre[1].nome | upper }}<small>&nbsp;</small></div>
+    </div>
+    <div class="rows">
+      {% for r in righe %}
+      <div class="row{% if r.mvp %} mvp{% endif %}">
+        <div class="no">{{ r.numero if r.numero is not none else "" }}</div>
+        <div class="nm">{{ r.nome | upper }}</div>
+        <div class="v">{{ r.voto.intero }}{% if r.voto.fraz %}<sup>{{ r.voto.fraz }}</sup>{% endif %}</div>
+      </div>
+      {% endfor %}
+    </div>
+    {% if squadra %}
+    <div class="team">
+      <div class="v">{{ squadra.voto.intero }}{% if squadra.voto.fraz %}<sup>{{ squadra.voto.fraz }}</sup>{% endif %}</div>
+      <div class="t"><b>LA SQUADRA</b>{{ squadra.commento }}</div>
+    </div>
+    {% endif %}
+  </div>
+  <div class="grain"></div>
+</body></html>
