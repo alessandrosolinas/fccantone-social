@@ -85,17 +85,17 @@
     background: {{ "var(--nero)" if p.mvp else "var(--rosa)" }};
     border: 12px solid var(--nero); outline: 8px solid var(--bianco);
     transform: rotate(8deg);
-    display: flex; align-items: center; justify-content: center;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
     box-shadow: 14px 16px 0 rgba(0,0,0,.6);
   }
   .voto span {
     font-family: "BSD"; font-weight: 900; line-height: .8; letter-spacing: -4px;
     color: {{ "var(--rosa)" if p.mvp else "var(--nero)" }};
-    font-size: {{ p.voto.size }}px; margin-top: 10px; white-space: nowrap;
+    font-size: {{ (p.voto.size * 0.82)|int }}px; margin-top: 18px; white-space: nowrap;
   }
   .voto sup { font-size: .42em; vertical-align: .95em; letter-spacing: 0; margin-left: 2px; }
   .voto small {
-    position: absolute; bottom: 44px; left: 0; right: 0; text-align: center;
+    position: static; margin-top: 14px; text-align: center;
     font-family: "BC"; font-weight: 700; font-size: 26px; letter-spacing: 1px;
     color: {{ "var(--bianco)" if p.mvp else "var(--nero)" }};
   }
